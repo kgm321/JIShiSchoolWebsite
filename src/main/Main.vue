@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <RouterLink to="/imrouter">Go to About</RouterLink>
+  <RouterLink to="/imrouter">进入暨实向导</RouterLink>
 </template>
 
 <style scoped>
