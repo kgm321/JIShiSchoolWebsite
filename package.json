@@ -1,0 +1,29 @@
+{
+  "name": "vrrouter",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@photo-sphere-viewer/core": "^5.13.2",
+    "marzipano": "^0.10.2",
+    "pannellum": "^2.5.6",
+    "panolens": "^0.11.0",
+    "photo-sphere-viewer": "^4.8.1",
+    "screenfull": "^6.0.2",
+    "three": "^0.126.1",
+    "vue": "^3.5.13",
+    "vue-pannellum": "^0.5.3",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.3",
+    "vite": "^6.2.4",
+    "vite-plugin-commonjs": "^0.10.4",
+    "vite-plugin-vue-devtools": "^7.7.2"
+  }
+}
