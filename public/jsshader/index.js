@@ -135,28 +135,6 @@
     });
   });
 
-  // // DOM elements for view controls.
-  // const viewUpElement = document.querySelector('#viewUp');
-  // const viewDownElement = document.querySelector('#viewDown');
-  // const viewLeftElement = document.querySelector('#viewLeft');
-  // const viewRightElement = document.querySelector('#viewRight');
-  // const viewInElement = document.querySelector('#viewIn');
-  // const viewOutElement = document.querySelector('#viewOut');
-  //
-  // // Dynamic parameters for controls.
-  // const velocity = 0.7;
-  // const friction = 3;
-
-  // // Associate view controls with elements.
-  // const controls = viewer.controls();
-  // controls.registerMethod('upElement',    new Marzipano.ElementPressControlMethod(viewUpElement,     'y', -velocity, friction), true);
-  // controls.registerMethod('downElement',  new Marzipano.ElementPressControlMethod(viewDownElement,   'y',  velocity, friction), true);
-  // controls.registerMethod('leftElement',  new Marzipano.ElementPressControlMethod(viewLeftElement,   'x', -velocity, friction), true);
-  // controls.registerMethod('rightElement', new Marzipano.ElementPressControlMethod(viewRightElement,  'x',  velocity, friction), true);
-  // controls.registerMethod('inElement',    new Marzipano.ElementPressControlMethod(viewInElement,  'zoom', -velocity, friction), true);
-  // controls.registerMethod('outElement',   new Marzipano.ElementPressControlMethod(viewOutElement, 'zoom',  velocity, friction), true);
-
-
   function addSceneIntoSceneListElement(scenesContainer, data) {
     // 创建 a 元素
     const anchor = document.createElement('a');
@@ -178,14 +156,179 @@
     return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');
   }
 
-  function switchScene(scene) {
-    stopAutorotate();
-    scene.view.setParameters(scene.data.initialViewParameters);
-    scene.scene.switchTo();
-    startAutorotate();
-    updateSceneName(scene);
-    updateSceneList(scene);
+  // 判断文件是否存在的函数
+function fileExists(url) {
+  return new Promise((resolve) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('HEAD', url, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        resolve(xhr.status === 200);
+      }
+    };
+    xhr.send();
+  });
+}
+
+// 创建场景信息按钮
+function createSceneInfoButton(sceneName) {
+  // 移除之前的按钮（如果存在）
+  const existingButton = document.getElementById('sceneInfoButton');
+  if (existingButton) {
+    existingButton.remove();
   }
+  
+  // 移除之前的iframe（如果存在）
+  const existingFrame = document.getElementById('sceneInfoFrame');
+  if (existingFrame) {
+    existingFrame.remove();
+  }
+
+  // 创建新按钮
+  const button = document.createElement('div');
+  button.id = 'sceneInfoButton';
+  button.innerHTML = '查看场景信息';
+  button.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 100;
+    font-size: 16px;
+  `;
+  
+  button.addEventListener('click', () => {
+    toggleSceneInfoFrame(sceneName);
+  });
+  
+  document.body.appendChild(button);
+}
+
+// 切换场景信息框架的显示状态
+function toggleSceneInfoFrame(sceneName) {
+  let frame = document.getElementById('sceneInfoFrame');
+  
+  if (frame) {
+    // 如果框架已存在，则切换其可见性
+    if (frame.style.height === '50%') {
+      frame.style.height = '0';
+      setTimeout(() => {
+        frame.remove();
+      }, 300);
+    } else {
+      frame.style.height = '50%';
+    }
+  } else {
+    // 创建新框架
+    frame = document.createElement('div');
+    frame.id = 'sceneInfoFrame';
+    frame.style.cssText = `
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background-color: white;
+      z-index: 99;
+      transition: height 0.3s ease;
+      overflow: hidden;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    `;
+    
+    // 创建关闭按钮
+    const closeButton = document.createElement('div');
+    closeButton.innerHTML = '×';
+    closeButton.style.cssText = `
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+      z-index: 101;
+    `;
+    closeButton.addEventListener('click', () => {
+      frame.style.height = '0';
+      setTimeout(() => {
+        frame.remove();
+      }, 300);
+    });
+    
+    // 创建iframe
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = `
+      width: 100%;
+      height: 100%;
+      border: none;
+    `;
+    iframe.src = `sense/${sceneName}/index.html`;
+    
+    frame.appendChild(closeButton);
+    frame.appendChild(iframe);
+    document.body.appendChild(frame);
+    
+    // 延迟设置高度以触发过渡效果
+    setTimeout(() => {
+      frame.style.height = '50%';
+    }, 10);
+  }
+}
+
+// 修改switchScene函数，添加对场景HTML的检查
+function switchScene(scene) {
+  stopAutorotate();
+  scene.view.setParameters(scene.data.initialViewParameters);
+  scene.scene.switchTo();
+  startAutorotate();
+  updateSceneName(scene);
+  updateSceneList(scene);
+  
+  // 获取场景名称并检查对应的HTML是否存在
+  const sceneName = scene.data.name;
+  checkSceneInfoAvailable(sceneName);
+}
+
+// 检查场景信息HTML是否可用
+async function checkSceneInfoAvailable(sceneName) {
+  const sceneInfoPath = `/public/jsshader/sense/${sceneName}/index.html`;
+  const exists = await fileExists(sceneInfoPath);
+  
+  if (exists) {
+    createSceneInfoButton(sceneName);
+  } else {
+    // 移除按钮（如果存在）
+    const existingButton = document.getElementById('sceneInfoButton');
+    if (existingButton) {
+      existingButton.remove();
+    }
+    
+    // 移除iframe（如果存在）
+    const existingFrame = document.getElementById('sceneInfoFrame');
+    if (existingFrame) {
+      existingFrame.remove();
+    }
+  }
+}
+
+// 添加必要的CSS
+const style = document.createElement('style');
+style.textContent = `
+  #sceneInfoButton:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+  
+  @media (max-width: 768px) {
+    #sceneInfoButton {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+  }
+`;
+document.head.appendChild(style);
 
   function updateSceneName(scene) {
     sceneNameElement.innerHTML = sanitize(scene.data.name);

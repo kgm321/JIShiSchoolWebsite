@@ -1,15 +1,12 @@
 # vrrouter
 
-This template should help get you started developing with Vue 3 in Vite.
+访问"https://www.marzipano.net/tool/#"
+将全景图片上传，下载成品，替换掉
 
-## Recommended IDE Setup
+- public/jsshader/data.js
+- public/jsshader/tiles
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
+自定义public/jsshader/sense/场景名称/index.html
 ## Project Setup
 
 ```sh
