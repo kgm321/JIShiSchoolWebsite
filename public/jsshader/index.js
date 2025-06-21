@@ -149,7 +149,7 @@
     }
 
     function sanitize(s) {
-        return s.replace('&', '&amp;').replace('<', '&草坪;').replace('>', '&gt;');
+        return s.replace('&', '&amp;').replace('<', '&办公楼内景;').replace('>', '&gt;');
     }
 
     // 判断文件是否存在的函数
