@@ -828,3 +828,50 @@ body.view-control-buttons .viewControlButton {
 .viewControlButton-6 {
   margin-left: 105px;
 }
+
+/* 紧凑型热点卡片 - 修复宽度问题 */
+.compact-hotspot {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e0e0e0;
+  padding: 4px 8px;
+  cursor: pointer;
+  height: 24px;
+  line-height: 16px;
+  font-size: 12px;
+  pointer-events: auto;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: content; /* 修改为 content 避免过度约束 */
+  display: inline-flex;
+  align-items: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+  min-width: 40px; /* 添加最小宽度防止收缩过小 */
+  max-width: 200px; /* 添加最大宽度防止过长 */
+  width: auto; /* 明确设置为自动宽度 */
+}
+
+.hotspot-content {
+  display: flex;
+  align-items: center;
+  width: 100%; /* 恢复100%宽度 */
+}
+
+.scene-name {
+  white-space: nowrap;
+  padding-right: 4px;
+  font-weight: 500;
+  color: #333;
+  overflow: visible; /* 确保文本完全可见 */
+  flex-shrink: 0; /* 防止文本被压缩 */
+}
+
+.arrow-icon {
+  color: #4285f4;
+  font-weight: bold;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-left: 4px; /* 添加右侧间距 */
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>礼堂信息</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: "Roboto", sans-serif;
+            line-height: 1.5;
+            color: #1d1b20;
+            background-color: #ffffff;
+        }
+        .container {
+            max-width: 393px;
+            margin: 0 auto;
+            padding: 8px 10px;
+        }
+        .card {
+            background-color: #fef7ff;
+            border: 1px solid #cac4d0;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #eaddff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            color: #4f378a;
+            margin-right: 16px;
+        }
+        .card-content {
+            flex-grow: 1;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .card-subtitle {
+            font-size: 14px;
+        }
+        .card-image {
+            width: 114px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .image-container {
+            margin-bottom: 16px;
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .chip {
+            display: inline-block;
+            padding: 6px 16px;
+            background-color: transparent;
+            border: 1px solid #cac4d0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #49454f;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="avatar">礼</div>
+        <div class="card-content">
+            <h2 class="card-title">礼堂</h2>
+            <p class="card-subtitle">羽毛球产地</p>
+        </div>
+        <img src="/public/jsshader/img/testImg1.jpg" alt="礼堂图片" class="card-image" />
+    </div>
+    <div class="chip">羽毛球场</div>
+    <div class="image-container">
+        <img src="/public/jsshader/img/testImg1.jpg" alt="羽毛球场图片" />
+    </div>
+    <div class="chip">礼堂内部</div>
+    <div class="image-container">
+        <img src="/public/jsshader/img/testImg1.jpg" alt="礼堂内部图片" />
+    </div>
+    <div class="chip">礼堂活动</div>
+    <div class="image-container">
+        <img src="/public/jsshader/img/testImg1.jpg" alt="礼堂活动图片1" />
+    </div>
+    <div class="image-container">
+        <img src="/public/jsshader/img/testImg1.jpg" alt="礼堂活动图片2" />
+    </div>
+    <div class="image-container">
+        <img src="/public/jsshader/img/testImg1.jpg" alt="礼堂活动图片3" />
+    </div>
+</div>
+</body>
+</html>
