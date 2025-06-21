@@ -149,7 +149,8 @@
     }
 
     function sanitize(s) {
-        return s.replace('&', '&amp;').replace('<', '&办公楼内景;').replace('>', '&gt;');
+        return s.replace('&', '&amp;').replace('<', '&' +
+            '办公楼内景;').replace('>', '&gt;');
     }
 
     // 判断文件是否存在的函数
@@ -285,7 +286,8 @@
 
         // 获取场景名称并检查对应的HTML是否存在
         const sceneName = scene.data.name;
-        checkSceneInfoAvailable(sceneName);
+        // checkSceneInfoAvailable(sceneName);
+        createSceneInfoButton(sceneName)
     }
 
 // 检查场景信息HTML是否可用
