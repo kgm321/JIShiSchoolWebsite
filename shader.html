@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Project Title</title>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+<!--<style> @-ms-viewport { width: device-width; } </style>-->
+<link rel="stylesheet" href="vendor/reset.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="multiple-scenes ">
+
+<!--主框架-->
+<div id="pano"></div>
+
+<!--场景列表-->
+<div id="sceneList">
+  <ul class="scenes"></ul>
+</div>
+
+<!--标题栏-->
+<div id="titleBar">
+  <h1 class="sceneName"></h1>
+</div>
+
+<!--自动旋转按钮-->
+<a href="javascript:void(0)" id="autorotateToggle">
+  <img class="icon off" src="img/play.png" alt="">
+  <img class="icon on" src="img/pause.png" alt="">
+</a>
+
+<!--场景列表展开按钮-->
+<a href="javascript:void(0)" id="sceneListToggle">
+  <img class="icon off" src="img/expand.png" alt="">
+  <img class="icon on" src="img/collapse.png" alt="">
+</a>
+
+
+<script src="vendor/screenfull.min.js" ></script>
+<script src="vendor/bowser.min.js" ></script>
+<script src="vendor/marzipano.js" ></script>
+
+<script src="data.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
